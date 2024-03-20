@@ -5,12 +5,10 @@ using UnityEngine;
 public class FollowPlayerX : MonoBehaviour
 {
     public GameObject plane;
-    private float speed = 25.0f;
-    private float turnSpeed = 60.0f;
-    private float VerticalInput;
-   
-    private Vector3 offset;
+    private Vector3 offsetMainCam = new Vector3(20, 0, 0);
+    private Vector3 camRotation = new Vector3(0, -90, 0);
 
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -20,13 +18,14 @@ public class FollowPlayerX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        VerticalInput = Input.GetAxis("Vertical");
-        transform.position = plane.transform.position + offset;
+        //transform.position = plane.transform.position + offsetMainCam;
+        // transform.rotation = Quaternion.Euler(camRotation);
 
-        transform.Translate(Vector3.forward * Time.deltaTime);
 
-        transform.Rotate(Vector3.left*speed * Time.deltaTime);
-        
+        //the 2 lines of code above can be combined into 1 line as shown below:
+
+        transform.SetPositionAndRotation(plane.transform.position + offsetMainCam, Quaternion.Euler(camRotation));
+
     }
 }
 
